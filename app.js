@@ -4,7 +4,7 @@ console.log("----------1-----------")
 // tiene una propiedad llamada id (debe devolver booleano true/false).
 
 
-const collection1 = [
+const collection1 = [{ 
     id: 23453, 
     author: "J. Simmons",
     pages: 250,
