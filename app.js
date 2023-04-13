@@ -51,8 +51,9 @@ console.log("----------4-----------")
 
 const collection4 = [1, 2, 3, 4, 5];
 
-const swapFirstToLast = (collection) => {
-    const [firts, ...rest] = collection;
+const swapFirstToLast = (collection) => {//Use destructuring directly in the parameter and return directly
+    const [firts, ...rest] = collection;//typo here
+    const response = [rest, first]
     rest.push(firts);
     const newArray = rest;
     console.log(newArray);
@@ -72,7 +73,7 @@ const Collection5 =  {
 };
 
 
-const excludeId = (collection) => {
+const excludeId = (collection) => {//Use destructuring directly in the parameter and return directly
     const {id, ...rest} = collection;
     const newObject = rest;
     return newObject;
@@ -97,7 +98,7 @@ console.log("----------7-----------");
 
 const concat = (...names) => {
     let result = "";
-    for (const name of names){
+    for (const name of names){//use a ES6 method here
         result+= name + "|";
     }
     return result;
@@ -112,7 +113,7 @@ console.log("----------8-----------");
 const collection8 = [3, 7, 5, 6];
 
 const multArray = (arr, x) => {
-    return arr.map(num => num * x)
+    return arr.map(num => num * x)// you do not need the {return} here > return directly from =>
 };
 
 console.log(multArray(collection8, 5));
@@ -124,7 +125,7 @@ console.log("----------9-----------");
 
 const calcMult = (...nums) => {
     let result = 1;
-    for (const num of nums){
+    for (const num of nums){//use method reduce here
         result*= num;
     }
     return result;
@@ -139,7 +140,7 @@ console.log("----------10-----------");
 
 const collection10 = [1, 2, 3, 4, 5, 6];
 
-const swapFirstSecond = (collection) => {
+const swapFirstSecond = (collection) => {//Use only ES6 methods and spread directly in the parameter
     const [first, second, ...theRest] = collection;
     theRest.reverse()
     theRest.push(first);
@@ -156,7 +157,7 @@ console.log("----------11-----------");
 // carácter cualquiera, y devuelva un booleano indicando si todos los strings comienzan por dicho carácter o no.
 
 
-const firstEqual = ( letter, ...names) => {
+const firstEqual = ( letter, ...names) => {//Use ES6 method here 
     for ( n of names) {
         if(n[0] !== letter){
             return false;
@@ -192,9 +193,6 @@ const searchInStringV1 = (str, char) => {
 }
 
 console.log(searchInStringV1("elemento", "e"));
-
-
-
 console.log("----------14-----------");
 // 14. searchInStringV2
 // Implementa el mismo ejercicio de antes, llamando a la función searchInStringV2,
@@ -282,7 +280,7 @@ console.log(getDrogueriaSubtotal(shoppingCart));
       
 const getShoppingList = (cart) => {
     const sortedCart = cart.sort((a, b) => a.category > b.category ? 1 : -1);
-    const formattedCart = sortedCart.map(product =>console.log(product.product +
+    const formattedCart = sortedCart.map(product => console.log(product.product +
         ": Precio Total " + (product.price * product.units) + " €" ));
 }
 getShoppingList(shoppingCart);
