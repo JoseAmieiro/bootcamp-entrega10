@@ -3,7 +3,6 @@ console.log("----------1-----------")
 // Implementa una función llamada hasId que admita como parámetro un objeto y compruebe si dicho objeto 
 // tiene una propiedad llamada id (debe devolver booleano true/false).
 
-
 const collection1 = [{ 
     id: 23453, 
     author: "J. Simmons",
@@ -26,10 +25,9 @@ const collection2 = [
 ]
 const head = (collection) => {
     const [first] = collection;
-    console.log(first);
+    return first
 }
-
-head(collection2)
+console.log(head(collection2));
 
 console.log("----------3-----------")
 // 3. tail
@@ -51,14 +49,12 @@ console.log("----------4-----------")
 
 const collection4 = [1, 2, 3, 4, 5];
 
-const swapFirstToLast = (collection) => {//Use destructuring directly in the parameter and return directly
-    const [firts, ...rest] = collection;//typo here
-    const response = [rest, first]
-    rest.push(firts);
-    const newArray = rest;
-    console.log(newArray);
+const swapFirstToLast = (collection) => {
+    const [first, ...rest] = collection;
+    const newArray = [...rest, first];
+    return newArray;
 }
-swapFirstToLast(collection4)
+console.log(swapFirstToLast(collection4));
 
 console.log("----------5-----------");
 // 5. excludeId
@@ -72,8 +68,7 @@ const Collection5 =  {
      read: true 
 };
 
-
-const excludeId = (collection) => {//Use destructuring directly in the parameter and return directly
+const excludeId = (collection) => {
     const {id, ...rest} = collection;
     const newObject = rest;
     return newObject;
@@ -96,13 +91,7 @@ console.log("----------7-----------");
 // Implementa una función llamada concat tal que admita múltiples argumentos de tipo string y 
 // devuelva otro string con la concatenación de todos, separados por |.
 
-const concat = (...names) => {
-    let result = "";
-    for (const name of names){//use a ES6 method here
-        result+= name + "|";
-    }
-    return result;
-}
+const concat = (...strings) => strings.reduce((acc, str) =>  acc + str + "|", "" );
 console.log(concat("Jose", "Patri", "Luis"));
 
 console.log("----------8-----------");
@@ -111,11 +100,7 @@ console.log("----------8-----------");
 // que sea un número (x) y devuelva un nuevo array donde cada elemento ha sido multiplicado por x.
 
 const collection8 = [3, 7, 5, 6];
-
-const multArray = (arr, x) => {
-    return arr.map(num => num * x)// you do not need the {return} here > return directly from =>
-};
-
+const multArray = (arr, x) => arr.map(num => num * x);
 console.log(multArray(collection8, 5));
 
 console.log("----------9-----------");
@@ -123,13 +108,7 @@ console.log("----------9-----------");
 // Implementa una función llamada calcMult que admita múltiples 
 // números como argumento y devuelva como resultado el producto de todos ellos.
 
-const calcMult = (...nums) => {
-    let result = 1;
-    for (const num of nums){//use method reduce here
-        result*= num;
-    }
-    return result;
-}
+const calcMult = (...nums) => nums.reduce((acc,num) => acc * num, 1);
 console.log(calcMult(1, 2, 3, 4));
 
 console.log("----------EJERCICIOS EXTRA-----------");
@@ -140,15 +119,11 @@ console.log("----------10-----------");
 
 const collection10 = [1, 2, 3, 4, 5, 6];
 
-const swapFirstSecond = (collection) => {//Use only ES6 methods and spread directly in the parameter
+const swapFirstSecond = (collection) => {
     const [first, second, ...theRest] = collection;
-    theRest.reverse()
-    theRest.push(first);
-    theRest.push(second);
-    const collectionChange = theRest;
-    return collectionChange.reverse();
+    const result = [second, first, ...theRest];
+    return result;
 }
-console.log(collection10)
 console.log(swapFirstSecond(collection10));
 
 console.log("----------11-----------");
@@ -156,15 +131,13 @@ console.log("----------11-----------");
 // Implementa una función firstEqual tal que admita multiples strings como argumento de entrada así como un 
 // carácter cualquiera, y devuelva un booleano indicando si todos los strings comienzan por dicho carácter o no.
 
-
-const firstEqual = ( letter, ...names) => {//Use ES6 method here 
-    for ( n of names) {
-        if(n[0] !== letter){
-            return false;
-        }
-    }
-    return true;
-};
+const firstEqual = (char, ...strings) => strings.reduce((acc, str) => {
+      if (str.charAt(0) === char) {
+        return acc;
+      } else {
+        return false;
+      }
+    }, true);
 
 console.log(firstEqual("a", "amor", "asco", "bueno"));
 console.log(firstEqual("a", "amor", "asco"));
@@ -173,72 +146,44 @@ console.log("----------12-----------");
 // 12. longest
 // Implementa una función longest que admita múltiples arrays como entrada, y devuelva el array más largo.
             //PREGUNTAR SI COMPARTEN MISMA LONGITUD
-function longest(...arrays) {
-    const longestArray = arrays.reduce((a, b) => (a.length > b.length ? a : b));
-    return longestArray;
-  }
 
-console.log(longest([1], [1, 2], [1, 2, 3], [4, 5, 6], [1, 2, 3]));
+const longest = (...arrays) => arrays.reduce((a, b) => (a.length > b.length ? a : b));
+console.log(longest([1], [1, 2], [1, 2, 3], [4, 5, 6], [-1, -2, -3])); // coge el ultimo mas largo, por qué?
 
 console.log("----------13-----------");
 //13. searchInStringV1
 // Implementa una función llamada searchInStringV1 tal que dado un string como parámetro y también un carácter,
 // devuelva cuantas veces aparece dicho carácter en el string.
 
-const searchInStringV1 = (str, char) => {
-    const count = [...str].reduce((acc, currentChar) => {
-        return currentChar === char ? acc + 1 : acc;
-    }, 0);
-    return count;
-}
-
+const searchInStringV1 = (str, char) => [...str].reduce((acc, currentChar) => 
+    currentChar === char ? acc + 1 : acc, 0);
 console.log(searchInStringV1("elemento", "e"));
+
 console.log("----------14-----------");
 // 14. searchInStringV2
 // Implementa el mismo ejercicio de antes, llamando a la función searchInStringV2,
 // encontrando otra alternativa sin usar reduce.
 
-const searchInStringV2 = (str, char) => {
-    const arr = [...str];
-    const count = arr.filter((c) => c === char).length;
-    return count;
-  }
-  console.log(searchInStringV2("elemento", "e"));
+const searchInStringV2 = (str, char) => [...str].filter((c) => c === char).length;
+console.log(searchInStringV2("espeso", "e"));
 
-  console.log("----------15-----------");
+console.log("----------15-----------");
 // 15. sortCharacters
 // Implementa una función llamada sortCharacters tal que dado un string, 
 // lo devuelva con sus letras ordenadas alfabéticamente.
 
-const sortCharacters = (str) => {
-    const newArray = str.split('').sort().join('');
-    return newArray;
-};
+const sortCharacters = (str) =>  newArray = str.split('').sort().join('');
+
 console.log(sortCharacters("TODOS LOS DIAS"))
-console.log(sortCharacters("¿cuanto más?")); // PREGUNTAR ORDENACION ALFABETONUMERICASIGNOS EN EL STRING
+console.log(sortCharacters("¿cuanto más?CUANTO MAS$@€\(\/=ºª")); // PREGUNTAR ORDENACION ALFABETONUMERICASIGNOS EN EL STRING
 
 console.log("----------16-----------");
 // .16 shout
 // Implementa una función llamada shout tal que, dadas múltiples palabras como entrada, 
 // devuelva todas las palabras concatenadas en un texto donde aparezcan en mayúsculas y con exclamaciones.
 
-// const shout = (...words) => {
-//     let result = "";
-//     for (word of words) {
-//         result+= word;
-//     }
-//     return "¡" + result.toUpperCase() + "!";
-// }
-// console.log(shout("Hola", "Que", "tal"))
-
-const shout = (...words) => {
-    let result = "";
-    for (word of words) {
-        result+= word;
-    }
-    return "¡" + result.toUpperCase() + "!";
-}
-console.log(shout("Hola", "Que", "tal"))
+const shout = (...words) => words.reduce((result, word) => result + '¡' + word.toUpperCase() + '!', '');
+console.log(shout("Hola", "Que", "tal"));
 
 // 17. Lista de la compra
 
@@ -255,9 +200,7 @@ const shoppingCart = [
 
     console.log("----------17A-----------");
     // A. Obtén una nueva lista donde aparezca el IVA (21%) de cada producto.
-const addVat = (id, elements) => elements.map(element => {
-    return {...element, id};
-});
+const addVat = (id, elements) => elements.map(element => ({...element, id}));
 console.log(addVat("21%", shoppingCart));
 
     console.log("----------17B-----------");
@@ -272,7 +215,6 @@ const getDrogueriaSubtotal = (cart) => {
     const drogueriaSubtotal = drogueriaProducts.reduce((subtotal, product) => subtotal + (product.price * product.units), 0);
     return drogueriaSubtotal.toFixed(2);
     };
-    
 console.log(getDrogueriaSubtotal(shoppingCart));
 
     console.log("----------17D-----------");
@@ -280,12 +222,13 @@ console.log(getDrogueriaSubtotal(shoppingCart));
       
 const getShoppingList = (cart) => {
     const sortedCart = cart.sort((a, b) => a.category > b.category ? 1 : -1);
-    const formattedCart = sortedCart.map(product => console.log(product.product +
+    const formattedCart = sortedCart.map(product => (product.product +
         ": Precio Total " + (product.price * product.units) + " €" ));
+    return formattedCart
 }
-getShoppingList(shoppingCart);
+console.log(getShoppingList(shoppingCart).join('\n'));
 
-  
+
     
     
     
