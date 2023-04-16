@@ -131,13 +131,7 @@ console.log("----------11-----------");
 // Implementa una función firstEqual tal que admita multiples strings como argumento de entrada así como un 
 // carácter cualquiera, y devuelva un booleano indicando si todos los strings comienzan por dicho carácter o no.
 
-const firstEqual = (char, ...strings) => strings.reduce((acc, str) => {
-      if (str.charAt(0) === char) {
-        return acc;
-      } else {
-        return false;
-      }
-    }, true);
+const firstEqual = (char, ...strings) => strings.reduce((acc, str) => (str.charAt(0) === char)  ?  acc : false , true);
 
 console.log(firstEqual("a", "amor", "asco", "bueno"));
 console.log(firstEqual("a", "amor", "asco"));
